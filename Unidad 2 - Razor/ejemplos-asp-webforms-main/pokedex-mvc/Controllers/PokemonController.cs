@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using dominio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using negocio;
 
 namespace pokedex_mvc.Controllers
@@ -23,16 +25,33 @@ namespace pokedex_mvc.Controllers
         // GET: PokemonController/Create
         public ActionResult Create()
         {
+            ElementoNegocio negocioElemento = new ElementoNegocio();
+            ViewBag.Elementos = new SelectList(negocioElemento.listar(), "Id", "Descripcion");
             return View();
         }
 
         // POST: PokemonController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Pokemon pokemon)
         {
             try
             {
+                if(pokemon.Nombre == "Pikachu")
+                {
+                    ModelState.AddModelError("", "No puede llamarse Pikachu");
+                }
+
+                if(!ModelState.IsValid)
+                {
+                    return View(pokemon);
+                }
+
+                PokemonNegocio negocio = new PokemonNegocio();
+
+                //pokemon.Tipo = new Elemento { Id = 1 };
+                //pokemon.Debilidad = new Elemento { Id = 2 };
+                negocio.agregar(pokemon);
                 return RedirectToAction(nameof(Index));
             }
             catch
