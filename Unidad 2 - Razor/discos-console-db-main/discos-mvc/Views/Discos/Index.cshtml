@@ -1,0 +1,66 @@
+﻿@model IEnumerable<dominio.Disco>
+
+@{
+    ViewData["Title"] = "Discos";
+}
+
+<h1>Listado</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadCanciones)
+            </th>
+            <th>
+                Genero
+            </th>
+            <th>
+                Edición
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UrlTapa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.FechaLanzamiento)
+            </td>
+            <td class="text-center"">
+                @Html.DisplayFor(modelItem => item.CantidadCanciones)
+            </td>
+            <th>
+                @item.Estilo.Descripcion
+            </th>
+            <th>
+                @item.TipoEdicion.Descripcion
+            </th>
+            <td>
+                <img src="@item.UrlTapa" height="50" />
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Editar</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-success">Detalle</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-dark">Cargar nuevo</a>
+</p>

@@ -1,0 +1,64 @@
+﻿@model dominio.Disco
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Disco</h4>
+    <hr />
+    <div class="row">
+        <div class="col-8">
+            <dl class="row">
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Titulo)
+                </dd>
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.FechaLanzamiento)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.FechaLanzamiento)
+                </dd>
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.CantidadCanciones)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.CantidadCanciones)
+                </dd>
+                <dt class="col-sm-4">
+                    Género
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.Estilo.Descripcion
+                </dd>
+                <dt class="col-sm-4">
+                    Edición
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.TipoEdicion.Descripcion
+                </dd>
+            </dl>
+        </div>
+        <div class="col-4">
+            <img src="@Model.UrlTapa" class="img-fluid" />
+        </div>
+    </div>
+</div>
+<hr />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Editar</a>
+    <p>
+    <p>
+    <a asp-action="Index">Volver al listado</a>
+</div>

@@ -1,5 +1,4 @@
 ﻿using dominio;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using negocio;
@@ -9,11 +8,20 @@ namespace pokedex_mvc.Controllers
     public class PokemonController : Controller
     {
         // GET: PokemonController
-        public ActionResult Index()
+        public ActionResult Index(string filtro)
         {
             PokemonNegocio negocio = new PokemonNegocio();
 
-            return View(negocio.listar());
+            var pokemons = negocio.listar();
+
+            if(!string.IsNullOrEmpty(filtro))
+            {
+                pokemons = pokemons.FindAll(p=> p.Nombre.ToUpper().Contains(filtro.ToUpper()));
+            }
+
+            ViewBag.filtro = filtro;
+
+            return View(pokemons);
         }
 
         // GET: PokemonController/Details/5
